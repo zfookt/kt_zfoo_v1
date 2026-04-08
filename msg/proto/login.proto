@@ -1,0 +1,15 @@
+syntax = "proto3";
+option java_package = "com.zfoo.server.msg";
+
+import "common.proto";
+
+/*使用token登录(也就是:使用long类型的userId登录,暂时就先不搞Role了)*/
+message LoginGame {
+     string token = 1;
+}
+
+// 主要是验证token,游戏进入online状态
+message LoginGameResp {
+    ErrorCode errorCode = 1;
+    UserData userData   = 2;
+}

@@ -1,0 +1,94 @@
+syntax = "proto3";
+option java_package = "com.zfoo.server.msg";
+
+import "common.proto";
+
+message EnterRoom {
+}
+
+message EnterRoomResp {
+   ErrorCode errorCode = 1;
+
+   RoomData roomData = 2;  // 正常进入游戏时，获取房间数据
+}
+
+/*退出房间*/
+message ExitRoom {
+}
+
+message ExitRoomResp {
+    ErrorCode errorCode = 1;
+}
+
+
+/*进入房间*/
+message NotifyOneEnterRoom {
+    SeatData seatData = 1;
+}
+
+/*退出房间*/
+message NotifyOneExitRoom {
+    int32 seat = 1;
+}
+
+/*准备*/
+message OneReady {
+}
+message OneReadyResp {
+    ErrorCode errorCode = 1;
+}
+
+/*通知准备*/
+message NotifyOneReady {
+    int32 seat = 1;
+}
+
+/*通知开始游戏*/
+message NotifyBattleStart {
+    NotifyTriggerOneTurn triggerOneTurn = 1;
+}
+
+/*倒计时通知*/
+message NotifyCountDown {
+}
+
+/*落子*/
+message OneTurn {
+    int32 boardGrid = 1;
+}
+
+/*通知有人落子*/
+message NotifyOneTurn {
+    int32 seat      = 1;
+    int32 oneGrid   = 2;
+    int32 oneSymbol = 3;
+}
+
+/*通知轮到谁了*/
+message NotifyTriggerOneTurn {
+    int32 turnSeat   = 1;
+    int32 turnSymbol = 2;
+}
+
+/*通知游戏结束*/
+message NotifyBattleEnd {
+    int32 winSeat = 1;
+}
+
+/*通知再次进入准备*/
+message NotifyTriggerReady {
+    GameData gameData = 1;  // 游戏数据. 游戏这里人数不变，所以不需要seat2Data、yourSeat等信息
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

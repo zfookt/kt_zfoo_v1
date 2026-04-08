@@ -1,0 +1,39 @@
+syntax = "proto3";
+option java_package = "com.zfoo.server.msg";
+
+enum MsgIds {
+    INVALID = 0;
+
+    ///// 登录 /////
+    _LoginGame     = 30101;
+    _LoginGameResp = 30102;
+
+    ///// 游戏逻辑 /////
+    _EnterRoom     = 30201;
+    _EnterRoomResp = 30202;
+
+    _ExitRoom      = 30203;
+    _ExitRoomResp  = 30204;
+
+    _NotifyOneEnterRoom = 30205;
+
+    _NotifyOneExitRoom = 30206;
+
+    _OneReady          = 30207;
+    _OneReadyResp      = 30208;
+
+    _NotifyOneReady    = 30209;
+
+    _NotifyBattleStart = 30210;
+
+    _NotifyCountDown   = 30211;
+
+    _OneTurn           = 30212;
+    _NotifyOneTurn     = 30213;
+
+    _NotifyTriggerOneTurn = 30214;
+
+    _NotifyBattleEnd  = 30215;
+
+    _NotifyTriggerReady = 30216;
+}

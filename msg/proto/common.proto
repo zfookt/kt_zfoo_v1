@@ -1,0 +1,67 @@
+syntax = "proto3";
+option java_package = "com.zfoo.server.msg";
+
+/*错误码*/
+enum ErrorCode {
+    /////通用错误码0-99/////
+    Ok = 0;
+
+    // 非法参数
+    InvalidParam = 1;
+
+    // 系统错误
+    SystemError = 2;
+
+    /////登录游戏/////
+    LoginGame_Error = 300;
+
+    /////游戏房间/////
+    EnterRoom_Error              = 400;
+    ExitRoom_Error_NotReadyState = 401;
+    ExitRoom_Error_NotInRoom     = 402;
+}
+
+/*User数据*/
+message UserData {
+    RoomData roomData = 1;  // 用于实现断线重连!!!
+    // 其他数据,如：金币等
+}
+
+/*位置用户数据*/
+message SeatData {
+    int32  seat     = 1;
+    string userId   = 2;
+    string userNick = 3;
+}
+
+/*房间数据*/
+message RoomData {
+    map<int32, SeatData> seat2Data = 1;
+    int32                yourSeat  = 2;
+    GameData             gameData  = 3;  // 游戏数据
+}
+
+/*房间状态*/
+enum RoomState {
+    E_None      = 0;  // 未初始化
+    E_Ready     = 1;  // 未满2人，准备中
+    E_CountDown = 2;  // 倒计时状态，结束后，进入对局状态
+    E_Battle    = 3;  // 对局状态
+    E_End       = 4;  // 结算
+}
+
+/*井字棋对局数据*/
+message GameData {
+    RoomState roomState = 1;  // 房间状态
+
+    // E_Ready
+    repeated bool readyData = 2;
+
+    // E_Battle(以0号玩家的角度)
+    repeated int32 boardData  = 3;
+    int32          turnSeat   = 4;
+    int32          turnSymbol = 5;
+
+    // E_End
+    int32 winSeat = 6;
+}
